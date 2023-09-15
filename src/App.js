@@ -22,6 +22,7 @@ import {
   PlayerNameAndImageContainer,
   Names,
   ButtonImage,
+  ResultImage,
 } from './StyledComponents'
 
 const choicesList = [
@@ -58,7 +59,7 @@ class App extends Component {
   }
 
   getTwoRandomResults = () => {
-    const {intialList} = this.state
+    const {intialList, score} = this.state
     const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
 
     const opponentImageId = intialList[opponentRandomNumber].imageUrl
@@ -68,26 +69,26 @@ class App extends Component {
         textResult: 'IT IS DRAW',
       })
     } else if (opponentImageId === intialList[1].imageUrl) {
-      this.setState(prevState => ({
+      this.setState({
         textResult: 'YOU WON',
-        score: prevState.score + 1,
-      }))
-    } else {
-      this.setState(prevState => ({
+        score: score + 1,
+      })
+    } else if (opponentImageId !== intialList[1].imageUrl) {
+      this.setState({
         textResult: 'YOU LOSE',
-        score: prevState.score - 1,
-      }))
+        score: score - 1,
+      })
     }
 
     this.setState({
       myImage: intialList[0].imageUrl,
-      opponentImage: intialList[opponentRandomNumber].imageUrl,
+      opponentImage: opponentImageId,
       resultCart: false,
     })
   }
 
   onClickScissorBtn = () => {
-    const {intialList} = this.state
+    const {intialList, score} = this.state
     const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
 
     const opponentImageId = intialList[opponentRandomNumber].imageUrl
@@ -97,26 +98,26 @@ class App extends Component {
         textResult: 'IT IS DRAW',
       })
     } else if (opponentImageId === intialList[2].imageUrl) {
-      this.setState(prevState => ({
+      this.setState({
         textResult: 'YOU WON',
-        score: prevState.score + 1,
-      }))
-    } else {
-      this.setState(prevState => ({
+        score: score + 1,
+      })
+    } else if (opponentImageId !== intialList[2].imageUrl) {
+      this.setState({
         textResult: 'YOU LOSE',
-        score: prevState.score - 1,
-      }))
+        score: score - 1,
+      })
     }
 
     this.setState({
       myImage: intialList[1].imageUrl,
-      opponentImage: intialList[opponentRandomNumber].imageUrl,
+      opponentImage: opponentImageId,
       resultCart: false,
     })
   }
 
   onClickPaperBtn = () => {
-    const {intialList} = this.state
+    const {intialList, score} = this.state
     const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
 
     const opponentImageId = intialList[opponentRandomNumber].imageUrl
@@ -126,20 +127,20 @@ class App extends Component {
         textResult: 'IT IS DRAW',
       })
     } else if (opponentImageId === intialList[0].imageUrl) {
-      this.setState(prevState => ({
+      this.setState({
         textResult: 'YOU WON',
-        score: prevState.score + 1,
-      }))
-    } else {
-      this.setState(prevState => ({
+        score: score + 1,
+      })
+    } else if (opponentImageId !== intialList[0].imageUrl) {
+      this.setState({
         textResult: 'YOU LOSE',
-        score: prevState.score - 1,
-      }))
+        score: score - 1,
+      })
     }
 
     this.setState({
       myImage: intialList[2].imageUrl,
-      opponentImage: intialList[opponentRandomNumber].imageUrl,
+      opponentImage: opponentImageId,
       resultCart: false,
     })
   }
@@ -156,11 +157,15 @@ class App extends Component {
         <ResultContainer>
           <PlayerNameAndImageContainer>
             <Names>You</Names>
-            <img src={myImage} alt="your choice" className="image-result" />
+            <ResultImage
+              src={myImage}
+              alt="your choice"
+              className="image-result"
+            />
           </PlayerNameAndImageContainer>
           <PlayerNameAndImageContainer>
             <Names>Opponent</Names>
-            <img
+            <ResultImage
               src={opponentImage}
               alt="opponent choice"
               className="image-result"
@@ -181,29 +186,32 @@ class App extends Component {
       <>
         <PlayImagesContainer>
           <RockAndScissorContainer>
-            <ButtonImage data-testid="rockButton">
+            <ButtonImage
+              onClick={this.getTwoRandomResults}
+              data-testid="rockButton"
+            >
               <img
                 src={intialList[0].imageUrl}
                 alt={intialList[0].id}
                 className="image-css"
-                onClick={this.getTwoRandomResults}
               />
             </ButtonImage>
-            <ButtonImage data-testid="scissorsButton">
+            <ButtonImage
+              onClick={this.onClickScissorBtn}
+              data-testid="scissorsButton"
+            >
               <img
                 src={intialList[1].imageUrl}
                 alt={intialList[1].id}
                 className="image-css"
-                onClick={this.onClickScissorBtn}
               />
             </ButtonImage>
           </RockAndScissorContainer>
-          <ButtonImage data-testid="paperButton">
+          <ButtonImage onClick={this.onClickPaperBtn} data-testid="paperButton">
             <img
               src={intialList[2].imageUrl}
               alt={intialList[2].id}
               className="paper-img"
-              onClick={this.onClickPaperBtn}
             />
           </ButtonImage>
         </PlayImagesContainer>

@@ -134,14 +134,14 @@ export const ResultContainer = styled(RockAndScissorContainer)`
     width: 450px;
   }
 `
-export const ResultTest = styled.h1`
+export const ResultTest = styled.p`
   font-size: 36px;
   font-weight: 700;
   font-family: 'Roboto';
   color: #ffffff;
 
   @media (max-width: 576px) {
-    font-size: 28px;
+    font-size: 24px;
   }
 `
 export const PlayAgainBtn = styled(ButtonItem)`
@@ -168,4 +168,11 @@ export const Names = styled(ScoreText)`
 export const ButtonImage = styled.button`
   border: none;
   background-color: transparent;
+`
+export const ResultImage = styled.img`
+  width: 62%;
+
+  @media (max-width: 576px) {
+    width: 60%;
+  }
 `

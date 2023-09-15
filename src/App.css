@@ -40,13 +40,3 @@ body {
     margin-right: 30px;
   }
 }
-
-.image-result {
-  width: 62%;
-}
-
-@media (max-width: 576px) {
-  .image-result {
-    width: 60%;
-  }
-}
