@@ -21,18 +21,27 @@ export const ScoreTextContainer = styled.div`
   justify-content: space-between;
   padding-right: 40px;
 `
-export const TextContainer = styled.ul`
+export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  list-style-type: none;
+  width: 130px;
+  margin-left: 30px;
+
+  @media (max-width: 576px) {
+    width: 90px;
+  }
 `
 
-export const ListItems = styled.li`
+export const ListItems = styled.h1`
   font-size: 26px;
   font-weight: 700;
   font-family: 'Bree Serif';
   color: #ffffff;
-  list-style-type: none;
+
+  @media (max-width: 576px) {
+    font-size: 20px;
+    padding-bottom: 5px;
+  }
 `
 export const ScoreContainer = styled(AppContainer)`
   min-height: auto;
@@ -41,11 +50,17 @@ export const ScoreContainer = styled(AppContainer)`
   width: 150px;
   border-radius: 5px;
   padding-top: 20px;
+
+  @media (max-width: 576px) {
+    height: 100px;
+    width: 110px;
+    padding-top: 8px;
+  }
 `
 export const ScoreText = styled.p`
   font-size: 26px;
   font-weight: 500;
-  font-family: 'Bree Serif';
+  font-family: ${props => props.fontFamily};
   color: #223a5f;
   margin-top: 0px;
   margin-bottom: 5px;
@@ -57,13 +72,15 @@ export const PlayImagesContainer = styled.div`
   height: 350px;
   align-items: center;
   width: 70%;
-  margin-top: 30px;
+  margin-top: 80px;
   padding-top: 20px;
 `
 export const RockAndScissorContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  width: 80%;
 `
 export const ButtonContainer = styled.div`
   display: flex;
@@ -94,6 +111,10 @@ export const PopupContainer = styled.div`
   padding-top: 0px;
   padding-right: 0px;
   padding-bottom: 50px;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `
 export const CloseButton = styled.button`
   align-self: flex-end;
@@ -105,17 +126,46 @@ export const CloseButton = styled.button`
   font-size: 22px;
 `
 export const ResultContainer = styled(RockAndScissorContainer)`
-  width: 550px;
+  width: 650px;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 70px;
+
+  @media (max-width: 576px) {
+    width: 450px;
+  }
 `
 export const ResultTest = styled.h1`
   font-size: 36px;
   font-weight: 700;
   font-family: 'Roboto';
   color: #ffffff;
+
+  @media (max-width: 576px) {
+    font-size: 28px;
+  }
 `
 export const PlayAgainBtn = styled(ButtonItem)`
   height: 36px;
   width: 120px;
+`
+export const PlayerNameAndImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 200px;
+`
+export const Names = styled(ScoreText)`
+  font-size: 30px;
+  color: #ffffff;
+  margin-bottom: 10px;
+
+  @media (max-width: 576px) {
+    font-size: 18px;
+  }
+`
+export const ButtonImage = styled.button`
+  border: none;
+  background-color: transparent;
 `

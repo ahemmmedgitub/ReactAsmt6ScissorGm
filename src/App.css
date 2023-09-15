@@ -11,18 +11,42 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .image-css {
-  width: 16%;
-  margin-right: 30px;
-  margin-left: 20px;
+  width: 59%;
+}
+
+@media (max-width: 576px) {
+  .image-css {
+    width: 84%;
+  }
 }
 .paper-img {
-  width: 16%;
+  width: 30%;
 }
+@media (max-width: 576px) {
+  .paper-img {
+    width: 32%;
+  }
+}
+
 .popup-img {
   width: 500px;
   height: 400px;
   margin-right: 30px;
 }
+@media (max-width: 576px) {
+  .popup-img {
+    width: 320px;
+    height: 300px;
+    margin-right: 30px;
+  }
+}
+
 .image-result {
-  width: 30%;
+  width: 62%;
+}
+
+@media (max-width: 576px) {
+  .image-result {
+    width: 60%;
+  }
 }
