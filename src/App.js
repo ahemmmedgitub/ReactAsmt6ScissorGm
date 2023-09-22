@@ -2,6 +2,8 @@ import {Component} from 'react'
 import Popup from 'reactjs-popup'
 import {RiCloseLine} from 'react-icons/ri'
 
+import ImageItem from './components/ImageItem/index'
+
 import './App.css'
 import {
   AppContainer,
@@ -21,7 +23,6 @@ import {
   PlayAgainBtn,
   PlayerNameAndImageContainer,
   Names,
-  ButtonImage,
   ResultImage,
 } from './StyledComponents'
 
@@ -58,89 +59,66 @@ class App extends Component {
     this.setState(prevState => ({showPopup: !prevState.showPopup}))
   }
 
-  getTwoRandomResults = () => {
+  getRemainingImg = id => {
     const {intialList, score} = this.state
+
     const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
+    const opponentImageId = intialList[opponentRandomNumber].id
 
-    const opponentImageId = intialList[opponentRandomNumber].imageUrl
+    const filterImage = intialList.filter(item => item.id === id)
 
-    if (opponentImageId === intialList[0].imageUrl) {
-      this.setState({
-        textResult: 'IT IS DRAW',
-      })
-    } else if (opponentImageId === intialList[1].imageUrl) {
-      this.setState({
-        textResult: 'YOU WON',
-        score: score + 1,
-      })
-    } else if (opponentImageId !== intialList[1].imageUrl) {
-      this.setState({
-        textResult: 'YOU LOSE',
-        score: score - 1,
-      })
+    if (id === 'ROCK') {
+      if (opponentImageId === id) {
+        this.setState({
+          textResult: 'IT IS DRAW',
+        })
+      } else if (opponentImageId === intialList[1].id) {
+        this.setState({
+          textResult: 'YOU WON',
+          score: score + 1,
+        })
+      } else if (opponentImageId !== intialList[1].id) {
+        this.setState({
+          textResult: 'YOU LOSE',
+          score: score - 1,
+        })
+      }
+    } else if (id === 'SCISSORS') {
+      if (opponentImageId === id) {
+        this.setState({
+          textResult: 'IT IS DRAW',
+        })
+      } else if (opponentImageId === intialList[2].imageUrl) {
+        this.setState({
+          textResult: 'YOU WON',
+          score: score + 1,
+        })
+      } else if (opponentImageId !== intialList[2].imageUrl) {
+        this.setState({
+          textResult: 'YOU LOSE',
+          score: score - 1,
+        })
+      }
+    } else if (id === 'PAPER') {
+      if (opponentImageId === id) {
+        this.setState({
+          textResult: 'IT IS DRAW',
+        })
+      } else if (opponentImageId === intialList[0].imageUrl) {
+        this.setState({
+          textResult: 'YOU WON',
+          score: score + 1,
+        })
+      } else if (opponentImageId !== intialList[0].imageUrl) {
+        this.setState({
+          textResult: 'YOU LOSE',
+          score: score - 1,
+        })
+      }
     }
-
     this.setState({
-      myImage: intialList[0].imageUrl,
-      opponentImage: opponentImageId,
-      resultCart: false,
-    })
-  }
-
-  onClickScissorBtn = () => {
-    const {intialList, score} = this.state
-    const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
-
-    const opponentImageId = intialList[opponentRandomNumber].imageUrl
-
-    if (opponentImageId === intialList[1].imageUrl) {
-      this.setState({
-        textResult: 'IT IS DRAW',
-      })
-    } else if (opponentImageId === intialList[2].imageUrl) {
-      this.setState({
-        textResult: 'YOU WON',
-        score: score + 1,
-      })
-    } else if (opponentImageId !== intialList[2].imageUrl) {
-      this.setState({
-        textResult: 'YOU LOSE',
-        score: score - 1,
-      })
-    }
-
-    this.setState({
-      myImage: intialList[1].imageUrl,
-      opponentImage: opponentImageId,
-      resultCart: false,
-    })
-  }
-
-  onClickPaperBtn = () => {
-    const {intialList, score} = this.state
-    const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
-
-    const opponentImageId = intialList[opponentRandomNumber].imageUrl
-
-    if (opponentImageId === intialList[2].imageUrl) {
-      this.setState({
-        textResult: 'IT IS DRAW',
-      })
-    } else if (opponentImageId === intialList[0].imageUrl) {
-      this.setState({
-        textResult: 'YOU WON',
-        score: score + 1,
-      })
-    } else if (opponentImageId !== intialList[0].imageUrl) {
-      this.setState({
-        textResult: 'YOU LOSE',
-        score: score - 1,
-      })
-    }
-
-    this.setState({
-      myImage: intialList[2].imageUrl,
-      opponentImage: opponentImageId,
+      myImage: filterImage[0].imageUrl,
+      opponentImage: intialList[opponentRandomNumber].imageUrl,
       resultCart: false,
     })
   }
@@ -149,7 +127,7 @@ class App extends Component {
     this.setState({resultCart: true})
   }
 
-  displayResultCart = () => {
+  GameResultView = () => {
     const {myImage, opponentImage, textResult} = this.state
 
     return (
@@ -157,19 +135,11 @@ class App extends Component {
         <ResultContainer>
           <PlayerNameAndImageContainer>
             <Names>You</Names>
-            <ResultImage
-              src={myImage}
-              alt="your choice"
-              className="image-result"
-            />
+            <ResultImage src={myImage} alt="your choice" />
           </PlayerNameAndImageContainer>
           <PlayerNameAndImageContainer>
             <Names>Opponent</Names>
-            <ResultImage
-              src={opponentImage}
-              alt="opponent choice"
-              className="image-result"
-            />
+            <ResultImage src={opponentImage} alt="opponent choice" />
           </PlayerNameAndImageContainer>
         </ResultContainer>
         <ResultTest>{textResult}</ResultTest>
@@ -186,34 +156,14 @@ class App extends Component {
       <>
         <PlayImagesContainer>
           <RockAndScissorContainer>
-            <ButtonImage
-              onClick={this.getTwoRandomResults}
-              data-testid="rockButton"
-            >
-              <img
-                src={intialList[0].imageUrl}
-                alt={intialList[0].id}
-                className="image-css"
+            {intialList.map(eachImage => (
+              <ImageItem
+                getRemainingImg={this.getRemainingImg}
+                eachImage={eachImage}
+                key={eachImage.id}
               />
-            </ButtonImage>
-            <ButtonImage
-              onClick={this.onClickScissorBtn}
-              data-testid="scissorsButton"
-            >
-              <img
-                src={intialList[1].imageUrl}
-                alt={intialList[1].id}
-                className="image-css"
-              />
-            </ButtonImage>
+            ))}
           </RockAndScissorContainer>
-          <ButtonImage onClick={this.onClickPaperBtn} data-testid="paperButton">
-            <img
-              src={intialList[2].imageUrl}
-              alt={intialList[2].id}
-              className="paper-img"
-            />
-          </ButtonImage>
         </PlayImagesContainer>
         <ButtonContainer>
           <Popup
@@ -254,7 +204,7 @@ class App extends Component {
             <ScoreText fontFamily="Roboto">{score}</ScoreText>
           </ScoreContainer>
         </ScoreTextContainer>
-        {resultCart ? this.playCart() : this.displayResultCart()}
+        {resultCart ? this.playCart() : this.GameResultView()}
       </AppContainer>
     )
   }

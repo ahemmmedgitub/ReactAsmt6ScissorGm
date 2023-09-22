@@ -78,9 +78,14 @@ export const PlayImagesContainer = styled.div`
 export const RockAndScissorContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  width: 80%;
+  width: 550px;
+  flex-wrap: wrap;
+
+  @media (max-width: 576px) {
+    width: 350px;
+  }
 `
 export const ButtonContainer = styled.div`
   display: flex;
@@ -125,13 +130,15 @@ export const CloseButton = styled.button`
   margin-bottom: 10px;
   font-size: 22px;
 `
-export const ResultContainer = styled(RockAndScissorContainer)`
-  width: 650px;
+export const ResultContainer = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin-top: 70px;
 
   @media (max-width: 576px) {
-    width: 450px;
+    width: 420px;
   }
 `
 export const ResultTest = styled.p`
@@ -165,14 +172,25 @@ export const Names = styled(ScoreText)`
     font-size: 18px;
   }
 `
-export const ButtonImage = styled.button`
-  border: none;
-  background-color: transparent;
-`
+
 export const ResultImage = styled.img`
   width: 62%;
 
   @media (max-width: 576px) {
     width: 60%;
+  }
+`
+export const ButtonImage = styled.button`
+  border: none;
+  background-color: transparent;
+`
+
+export const ClickedImage = styled.img`
+  height: 180px;
+  width: 180px;
+
+  @media (max-width: 576px) {
+    height: 130px;
+    width: 130px;
   }
 `
