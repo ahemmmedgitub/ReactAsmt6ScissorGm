@@ -62,7 +62,9 @@ class App extends Component {
   getRemainingImg = id => {
     const {intialList, score} = this.state
 
-    const opponentRandomNumber = Math.ceil(Math.random() * 3) - 1
+    const opponentRandomNumber =
+      Math.ceil(Math.random() * intialList.length) - 1
+    console.log(opponentRandomNumber)
     const opponentImageId = intialList[opponentRandomNumber].id
 
     const filterImage = intialList.filter(item => item.id === id)
@@ -77,7 +79,7 @@ class App extends Component {
           textResult: 'YOU WON',
           score: score + 1,
         })
-      } else if (opponentImageId !== intialList[1].id) {
+      } else if (opponentImageId === intialList[2].id) {
         this.setState({
           textResult: 'YOU LOSE',
           score: score - 1,
@@ -88,12 +90,12 @@ class App extends Component {
         this.setState({
           textResult: 'IT IS DRAW',
         })
-      } else if (opponentImageId === intialList[2].imageUrl) {
+      } else if (opponentImageId === intialList[2].id) {
         this.setState({
           textResult: 'YOU WON',
           score: score + 1,
         })
-      } else if (opponentImageId !== intialList[2].imageUrl) {
+      } else if (opponentImageId === intialList[0].id) {
         this.setState({
           textResult: 'YOU LOSE',
           score: score - 1,
@@ -104,12 +106,12 @@ class App extends Component {
         this.setState({
           textResult: 'IT IS DRAW',
         })
-      } else if (opponentImageId === intialList[0].imageUrl) {
+      } else if (opponentImageId === intialList[0].id) {
         this.setState({
           textResult: 'YOU WON',
           score: score + 1,
         })
-      } else if (opponentImageId !== intialList[0].imageUrl) {
+      } else if (opponentImageId === intialList[1].id) {
         this.setState({
           textResult: 'YOU LOSE',
           score: score - 1,
